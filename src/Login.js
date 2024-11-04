@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebase';
-import { Link } from 'react-router-dom';
+
 import './login.css';
 
 const Login = () => {
@@ -17,13 +15,7 @@ const Login = () => {
 
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
-      return;
-    }
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setSuccessMessage('Login successful!');
-    } catch (error) {
       setErrorMessage('Invalid email or password.');
     }
   };
@@ -62,7 +54,7 @@ const Login = () => {
         <div className="login-footer">
           <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
           <p>
-            Don't have an account? <Link to="/signup">Sign Up</Link>
+
           </p>
         </div>
       </div>
