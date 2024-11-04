@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import './login.css';
 
 const Login = () => {
@@ -19,7 +20,8 @@ const Login = () => {
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
     } else if (email === validEmail && password === validPassword) {
-      setSuccessMessage('Login successful! ');
+      setSuccessMessage('Login successful!');
+      // Redirect or perform further actions here if needed
     } else {
       setErrorMessage('Invalid email or password.');
     }
@@ -59,7 +61,7 @@ const Login = () => {
         <div className="login-footer">
           <a href="/forgot-password">Forgot Password?</a>
           <p>
-            Don't have an account? <a href="/signup">Sign Up</a>
+            Don't have an account? <Link to="/signup">Sign Up</Link> {/* Link to Sign Up */}
           </p>
         </div>
       </div>

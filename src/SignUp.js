@@ -1,4 +1,7 @@
+// SignUp.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
+import './SignUp.css'; // You can create this CSS file similarly to your login.css
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -18,9 +21,8 @@ const SignUp = () => {
     } else if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match.');
     } else {
-      // Here you would typically send a request to your backend to create the user
       setSuccessMessage('Signup successful! Please log in.');
-      // Optionally, reset fields after successful signup
+      // Reset fields after successful signup if needed
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -28,12 +30,12 @@ const SignUp = () => {
   };
 
   return (
-    <div style={styles.loginPage}>
-      <div style={styles.logo}>MoneyTrail</div>
-      <div style={styles.loginContainer}>
+    <div className="login-page">
+      <div className="logo">MoneyTrail</div>
+      <div className="login-container">
         <h1>Sign Up</h1>
         <form onSubmit={handleSignup}>
-          <div style={styles.inputGroup}>
+          <div className="input-group">
             <label>Email</label>
             <input
               type="email"
@@ -41,10 +43,9 @@ const SignUp = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              style={styles.input}
             />
           </div>
-          <div style={styles.inputGroup}>
+          <div className="input-group">
             <label>Password</label>
             <input
               type="password"
@@ -52,10 +53,9 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
-              style={styles.input}
             />
           </div>
-          <div style={styles.inputGroup}>
+          <div className="input-group">
             <label>Confirm Password</label>
             <input
               type="password"
@@ -63,72 +63,20 @@ const SignUp = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
               required
-              style={styles.input}
             />
           </div>
-          {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
-          {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
-          <button type="submit" style={styles.loginButton}>Sign Up</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
+          <button type="submit" className="login-button">Sign Up</button>
         </form>
-        <div style={styles.loginFooter}>
+        <div className="login-footer">
           <p>
-            Already have an account? <a href="/login">Log In</a>
+            Already have an account? <Link to="/">Log In</Link> {/* Link to Login */}
           </p>
         </div>
       </div>
     </div>
   );
-};
-
-// Styles
-const styles = {
-  loginPage: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f0f0',
-    textAlign: 'center',
-  },
-  logo: {
-    fontSize: '2em',
-    marginBottom: '20px',
-  },
-  loginContainer: {
-    background: 'white',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-  },
-  inputGroup: {
-    marginBottom: '15px',
-    textAlign: 'left',
-  },
-  input: {
-    width: '100%',
-    padding: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-  },
-  errorMessage: {
-    color: 'red',
-  },
-  successMessage: {
-    color: 'green',
-  },
-  loginButton: {
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-  },
-  loginFooter: {
-    marginTop: '20px',
-  },
 };
 
 export default SignUp;
