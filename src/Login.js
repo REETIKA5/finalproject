@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebase';
 import { Link } from 'react-router-dom';
 import './login.css';
+import GoogleButton from "react-google-button";
+import { useUserAuth } from './UserAuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const { logIn, googleSignIn } = useUserAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,10 +22,19 @@ const Login = () => {
     }
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await logIn(email, password);
       setSuccessMessage('Login successful!');
     } catch (error) {
       setErrorMessage('Invalid email or password.');
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+      setSuccessMessage('Google Sign-In successful!');
+    } catch (error) {
+      setErrorMessage('Google Sign-In failed.');
     }
   };
 
@@ -61,6 +71,7 @@ const Login = () => {
         </form>
         <div className="login-footer">
           <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
+          <GoogleButton className="w-100" onClick={handleGoogleSignIn}/>
           <p>
             Don't have an account? <Link to="/signup">Sign Up</Link>
           </p>
