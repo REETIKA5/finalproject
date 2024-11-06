@@ -1,4 +1,6 @@
+// App.js
 import React from 'react';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
@@ -10,9 +12,11 @@ import Aboutus from './Aboutus';
 
 
 
+
 function App() {
   return (
     <Router>
+
       <div>
         <Navbar />
         <Routes>
@@ -22,6 +26,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
         </Routes>
       </div>
+
     </Router>
   );
 }

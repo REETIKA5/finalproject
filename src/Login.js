@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import './login.css';
 
 const Login = () => {
@@ -8,20 +9,14 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
     setErrorMessage('');
     setSuccessMessage('');
 
-    const validEmail = 'usertest1@gmail.com';
-    const validPassword = 'user123';
-
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
-    } else if (email === validEmail && password === validPassword) {
-      setSuccessMessage('Login successful! ');
-    } else {
+
       setErrorMessage('Invalid email or password.');
     }
   };
@@ -77,9 +72,9 @@ const Login = () => {
           </button>
         </form>
         <div className="login-footer">
-          <a href="/forgot-password">Forgot Password?</a>
+          <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
           <p>
-            Don't have an account? <a href="/signup">Sign Up</a>
+
           </p>
         </div>
       </div>

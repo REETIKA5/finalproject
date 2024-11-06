@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; 
+
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -7,10 +9,12 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
   const [isHovered, setIsHovered] = useState(false); // State to manage hover
 
   const handleSignup = (e) => {
     e.preventDefault();
+
     setErrorMessage('');
     setSuccessMessage('');
 
@@ -28,11 +32,13 @@ const SignUp = () => {
 
   return (
     <div className="login-page">
+
       <div className="circle1"></div>
       <div className="circle2"></div>
       <div className="circle3"></div>
      
       <div className="SignUp-container">
+
         <h1>Sign Up</h1>
         <form onSubmit={handleSignup}>
           <div className="input-group">
@@ -67,6 +73,7 @@ const SignUp = () => {
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
+
           <button
             type="submit"
             className="SignUp-button"
@@ -90,6 +97,7 @@ const SignUp = () => {
         <div className="SignUp-footer">
           <p>
             Already have an account? <Link to="/Login">Log In</Link>
+
           </p>
         </div>
       </div>
