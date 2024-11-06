@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import { Link } from 'react-router-dom';
+
 import './login.css';
 import GoogleButton from "react-google-button";
 import { useUserAuth } from './UserAuthContext';
@@ -9,7 +11,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
   const { logIn, googleSignIn } = useUserAuth();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,13 +22,13 @@ const Login = () => {
 
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
-      return;
-    }
+
 
     try {
       await logIn(email, password);
       setSuccessMessage('Login successful!');
     } catch (error) {
+
       setErrorMessage('Invalid email or password.');
     }
   };
@@ -67,17 +71,37 @@ const Login = () => {
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
-          <button type="submit" className="login-button">Login</button>
+          
+          <button
+            type="submit"
+            className="login-button"
+            style={{
+              backgroundColor: isHovered ? '#28a0a7' : '#31bbc5',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              width: '100%',
+              transition: 'background-color 0.3s ease, transform 0.2s ease',
+              transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            Login
+          </button>
         </form>
         <div className="login-footer">
           <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
           <GoogleButton className="w-100" onClick={handleGoogleSignIn}/>
           <p>
-            Don't have an account? <Link to="/signup">Sign Up</Link>
+
           </p>
         </div>
       </div>
     </div>
+    
   );
 };
 
