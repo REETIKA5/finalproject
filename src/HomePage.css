@@ -1,0 +1,19 @@
+.image-effect {
+    transition: transform 0.3s ease, opacity 0.5s ease; /* Smooth transitions */
+}
+
+.slide-in {
+    transform: translateX(-100%); /* Start off-screen to the left */
+    opacity: 0; /* Start fully transparent */
+}
+
+.slide-in.visible {
+    transform: translateX(0); /* Move into position */
+    opacity: 1; /* Fade in to fully opaque */
+}
+
+.image-effect:hover {
+    transform: scale(1.05); /* Scale up slightly on hover */
+    cursor: pointer; /* Change cursor to pointer */
+}
+

@@ -6,6 +6,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -54,7 +55,26 @@ const Login = () => {
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
-          <button type="submit" className="login-button">Login</button>
+          
+          <button
+            type="submit"
+            className="login-button"
+            style={{
+              backgroundColor: isHovered ? '#28a0a7' : '#31bbc5',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              width: '100%',
+              transition: 'background-color 0.3s ease, transform 0.2s ease',
+              transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            Login
+          </button>
         </form>
         <div className="login-footer">
           <a href="/forgot-password">Forgot Password?</a>
