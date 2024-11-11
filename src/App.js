@@ -1,33 +1,32 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
 import Login from './Login';
-import SignUp from './SignUp';
 import Aboutus from './Aboutus';
-
+import SignUp from './SignUp'; 
+import Dashboard from './Dashboard';
 import ForgotPassword from './ForgotPassword';
 import { UserAuthContextProvider } from './UserAuthContext';
-const App = () => {
 
+const App = () => {
   return (
     <UserAuthContextProvider>
-    <Router>
+      <Router>
+        <div>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/Aboutus" element={<Aboutus />} />
+            <Route path="/signup" element={<SignUp />} /> 
+            <Route path="/dashboard" element={<Dashboard />} />
 
-      <div>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/Aboutus" element={<Aboutus />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </div>
-
-    </Router>
+          </Routes>
+        </div>
+      </Router>
     </UserAuthContextProvider>
   );
-}
+};
 
 export default App;
