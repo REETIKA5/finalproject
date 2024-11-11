@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-
 import { Link } from 'react-router-dom';
-
 import './login.css';
-import GoogleButton from "react-google-button";
+import GoogleButton from 'react-google-button';
 import { useUserAuth } from './UserAuthContext';
 
 const Login = () => {
@@ -11,9 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
+  const [isHovered, setIsHovered] = useState(false);
   const { logIn, googleSignIn } = useUserAuth();
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,13 +19,13 @@ const Login = () => {
 
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
-
+      return;
+    }
 
     try {
       await logIn(email, password);
       setSuccessMessage('Login successful!');
     } catch (error) {
-
       setErrorMessage('Invalid email or password.');
     }
   };
@@ -71,7 +68,6 @@ const Login = () => {
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
-          
           <button
             type="submit"
             className="login-button"
@@ -94,14 +90,11 @@ const Login = () => {
         </form>
         <div className="login-footer">
           <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
-          <GoogleButton className="w-100" onClick={handleGoogleSignIn}/>
-          <p>
-
-          </p>
+          <GoogleButton className="w-100" onClick={handleGoogleSignIn} />
+          <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
         </div>
       </div>
     </div>
-    
   );
 };
 

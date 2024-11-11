@@ -1,10 +1,11 @@
 // App.js
 import React from 'react';
-
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
 import Login from './Login';
+import SignUp from './SignUp';
+import Aboutus from './Aboutus';
 
 import ForgotPassword from './ForgotPassword';
 import { UserAuthContextProvider } from './UserAuthContext';

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CarouselFadeExample from './Carousel'; 
 import TextExample from './TextExample';
-import ExpensesImg from "C://Final//finalproject//src//Images//Expenses.png";
-import Icon2 from "C://Final//finalproject//src//Images//Goals.png"; 
-import Icon3 from "C://Final//finalproject//src//Images//Reports2.png";
+import ExpensesImg from "C://STUDIO 3//finalproject-2//src//Images//Expenses.png";
+import Icon2 from "C://STUDIO 3//finalproject-2//src//Images//Goals.png"; 
+import Icon3 from "C://STUDIO 3//finalproject-2//src//Images//Reports2.png";
 import './HomePage.css'; // Import your CSS file
 
 function HomePage() {
@@ -31,10 +31,10 @@ function HomePage() {
                      zIndex: 4,
                      textAlign: 'center',
                   }}>
-                 <h1 style={{ fontSize: '3rem', marginBottom: '20px', color: 'rgba(0, 0, 139, 1)' }}> 
+                 <h1 style={{ fontSize: '3rem', marginBottom: '20px', color: 'rgba(0, 1, 139, 1)'}}> 
                     Take Control of Your Budget
                 </h1>
-                 <p style={{ fontSize: '1.5rem', marginBottom: '40px', color: 'rgba(255, 215, 0, 1)' }}> 
+                 <p style={{ fontSize: '1.5rem', marginBottom: '40px', color: 'rgba(0, 100, 0, 1)' }}> 
                       Easy-to-use tools to track spending and achieve your financial goals.
                  </p>
                 </div>
@@ -44,7 +44,7 @@ function HomePage() {
           </div>
         </div>
         <section className="row text-center" style={{ padding: '50px 0', display: 'flex', justifyContent: 'space-between' }}>
-          {/** Image Cards with Animation Effects **/}
+          
           <div className="col-md-4">
             <div style={{ padding: '20px' }}>
               <img
