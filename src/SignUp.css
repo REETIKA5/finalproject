@@ -1,51 +1,57 @@
-/* Sign-Up Page Styles */
-
-.login-page {
+.sign-up-page {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #a0e4fc; /* Same background color as Login */
+    background-color: #a0e4fc;
     position: relative;
     overflow: hidden;
-}
-
-.circle1 {
+  }
+  
+  .circle1, .circle2, .circle3 {
+    transition: transform 0.5s ease;
+  }
+  
+  .circle1:hover, .circle2:hover, .circle3:hover {
+    transform: scale(1.1);
+  }
+  
+  .circle1 {
     position: absolute;
     top: 20px;
     left: 30px;
     width: 150px;
     height: 150px;
-    background-color: #6ce4c5; /* Same as Login */
+    background-color: #6ce4c5;
     border-radius: 50%;
     z-index: 1;
-}
-
-.circle2 {
+  }
+  
+  .circle2 {
     position: absolute;
     top: 100px;
     right: 50px;
     width: 300px;
     height: 300px;
-    background-color: #ae8b8b; /* Same as Login */
+    background-color: #ae8b8b;
     border-radius: 50%;
     z-index: 1;
-}
-
-.circle3 {
+  }
+  
+  .circle3 {
     position: absolute;
     bottom: 40px;
     right: 20px;
     width: 80px;
     height: 80px;
-    background-color: #60e9d2; /* Same as Login */
+    background-color: #60e9d2;
     border-radius: 50%;
     z-index: 1;
-}
-
-.login-container {
-    background-color: #f8f8f8; /* Same container color as Login */
+  }
+  
+  .sign-up-container {
+    background-color: #f8f8f8;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
@@ -53,65 +59,93 @@
     width: 300px;
     z-index: 2;
     position: relative;
-}
-
-h1 {
+  }
+  
+  h1 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: 400;
-}
-
-.input-group {
+  }
+  
+  .input-group {
     margin-bottom: 15px;
     text-align: left;
-}
-
-.input-group label {
+  }
+  
+  .input-group label {
     display: block;
     margin-bottom: 5px;
-}
-
-.input-group input {
+  }
+  
+  .input-group input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.login-button {
-    background-color: #999; /* Same button color as Login */
+  }
+  
+  .input-group input:focus {
+    border-color: #6ce4c5;
+    outline: none;
+    box-shadow: 0 0 5px rgba(108, 228, 197, 0.5);
+  }
+  
+  .sign-up-button {
+    background-color: #999;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
-}
-
-.login-footer {
+    transition: background-color 0.3s ease;
+  }
+  
+  .sign-up-button:hover {
+    background-color: #777;
+  }
+  
+  .sign-up-footer {
     margin-top: 15px;
     font-size: 12px;
-}
-
-.login-footer a {
+  }
+  
+  .sign-up-footer a {
     color: #555;
     text-decoration: none;
-}
-
-.error-message {
+  }
+  
+  .error-message {
     color: red;
     margin-bottom: 10px;
-}
-
-.success-message {
-    color: green; /* Add success message style */
-}
-
-.logo {
+  }
+  
+  .success-message {
+    color: green;
+    margin-bottom: 10px;
+  }
+  
+  .logo {
     font-size: 28px;
     font-family: 'Georgia', serif;
     font-weight: bold;
     color: #000;
     z-index: 2;
     margin-bottom: 20px;
-}
+  }
+  
+  @media (max-width: 480px) {
+    .sign-up-container {
+      width: 90%;
+    }
+  
+    h1 {
+      font-size: 20px;
+    }
+  
+    .circle1, .circle2, .circle3 {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  
