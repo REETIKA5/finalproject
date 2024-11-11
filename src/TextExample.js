@@ -27,7 +27,7 @@ function TextExample() {
         </Card.Text>
         <Link to="/signup">
           <Button variant="warning" className="mt-3">
-            Get Started Free
+            Get Started 
           </Button>
         </Link>
       </Card.Body>

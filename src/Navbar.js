@@ -16,7 +16,7 @@ const Navigation = () => {
           <Nav.Link as={NavLink} to="/login" style={({ isActive }) => ({ color: isActive ? 'WHITE' : 'Black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
             Login
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/about-us" style={({ isActive }) => ({ color: isActive ? 'White' : 'Black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+          <Nav.Link as={NavLink} to="/Aboutus" style={({ isActive }) => ({ color: isActive ? 'White' : 'Black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
             About Us
           </Nav.Link>
         </Nav>
