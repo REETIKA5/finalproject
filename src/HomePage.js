@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import CarouselFadeExample from './Carousel'; 
 import TextExample from './TextExample';
-import ExpensesImg from "C://Final//finalproject//src//Images//Expenses.png";
-import Icon2 from "C://Final//finalproject//src//Images//Goals.png"; 
-import Icon3 from "C://Final//finalproject//src//Images//Reports2.png";
-import './HomePage.css'; // Import your CSS file
+import ExpensesImg from "C://STUDIO 3//finalproject-4//src//Images//Expenses.png";
+import Icon2 from "C://STUDIO 3//finalproject-4//src//Images//Goals.png"; 
+import Icon3 from "C://STUDIO 3//finalproject-4//src//Images//Reports2.png";
+import './HomePage.css'; 
 
 function HomePage() {
-    const [visible, setVisible] = useState(false); // State to control visibility for animation
+    const [visible, setVisible] = useState(false); 
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setVisible(true);
-        }, 80); // Delay to allow for the animation to trigger
+        }, 80); 
 
-        return () => clearTimeout(timer); // Cleanup on unmount
+        return () => clearTimeout(timer); 
     }, []);
 
     return (
@@ -44,13 +44,13 @@ function HomePage() {
           </div>
         </div>
         <section className="row text-center" style={{ padding: '50px 0', display: 'flex', justifyContent: 'space-between' }}>
-          {/** Image Cards with Animation Effects **/}
+          
           <div className="col-md-4">
             <div style={{ padding: '20px' }}>
               <img
                 src={ExpensesImg}
                 alt="Track Spending"
-                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} // Slide-in class
+                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} 
                 style={{ width: '55%', height: 'auto' }}
               />
               <h2>Track Spending</h2>
@@ -62,7 +62,7 @@ function HomePage() {
               <img
                 src={Icon2}
                 alt="Set Goals"
-                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} // Slide-in class
+                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`}
                 style={{ width: '100%', height: 'auto' }}
               />
               <h2>Set Goals</h2>
@@ -74,7 +74,7 @@ function HomePage() {
               <img
                 src={Icon3}
                 alt="Reports"
-                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} // Slide-in class
+                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} 
                 style={{ width: '100%', height: 'auto' }}
               />
               <h2>Generate Reports</h2>

@@ -1,7 +1,8 @@
-
+// SignUp.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useUserAuth } from './UserAuthContext';
+import './SignUp.css';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -9,12 +10,12 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
+  const { signUp } = useUserAuth();
+  const navigate = useNavigate();
 
-  const [isHovered, setIsHovered] = useState(false); // State to manage hover
-
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-
     setErrorMessage('');
     setSuccessMessage('');
 
@@ -23,25 +24,29 @@ const SignUp = () => {
     } else if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match.');
     } else {
-      setSuccessMessage('Signup successful! Please log in.');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+      try {
+        await signUp(email, password);
+        setSuccessMessage('Signup successful! Please log in.');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        navigate('/login'); 
+      } catch (error) {
+        setErrorMessage('Error signing up. Please try again.');
+      }
     }
   };
 
   return (
-    <div className="login-page">
+    <div className="sign-up-page">
+      <div className="circle1-signup"></div>
+      <div className="circle2-signup"></div>
+      <div className="circle3-signup"></div>
 
-      <div className="circle1"></div>
-      <div className="circle2"></div>
-      <div className="circle3"></div>
-     
-      <div className="SignUp-container">
-
+      <div className="sign-up-container">
         <h1>Sign Up</h1>
         <form onSubmit={handleSignup}>
-          <div className="input-group">
+          <div className="input-group-signup">
             <label>Email</label>
             <input
               type="email"
@@ -51,7 +56,7 @@ const SignUp = () => {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-signup">
             <label>Password</label>
             <input
               type="password"
@@ -61,7 +66,7 @@ const SignUp = () => {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-signup">
             <label>Confirm Password</label>
             <input
               type="password"
@@ -76,7 +81,9 @@ const SignUp = () => {
 
           <button
             type="submit"
-            className="SignUp-button"
+            className="sign-up-button"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             style={{
               backgroundColor: isHovered ? '#28a0a7' : '#31bbc5',
               color: 'white',
@@ -88,17 +95,12 @@ const SignUp = () => {
               transition: 'background-color 0.3s ease, transform 0.2s ease',
               transform: isHovered ? 'scale(1.05)' : 'scale(1)',
             }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
           >
             Sign Up
           </button>
         </form>
-        <div className="SignUp-footer">
-          <p>
-            Already have an account? <Link to="/Login">Log In</Link>
-
-          </p>
+        <div className="sign-up-footer">
+          <p>Already have an account? <Link to="/login">Log In</Link></p>
         </div>
       </div>
     </div>
