@@ -1,26 +1,62 @@
 
-import React, { useContext, createContext } from 'react';
-import { auth } from './firebase'; 
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import React, { useContext, createContext, useState, useEffect } from 'react';
+import { auth } from './firebase';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from './firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 const UserAuthContext = createContext();
 
-export const useUserAuth = () => {
-  return useContext(UserAuthContext);
-};
+export const useUserAuth = () => useContext(UserAuthContext);
 
 export const UserAuthContextProvider = ({ children }) => {
-  const logIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const [user, setUser] = useState(null);
+
+  
+  const logIn = async (email, password) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    setUser(userCredential.user);
+    return userCredential.user;
   };
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+  
+  const signUp = async (email, password) => {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+ 
+    await setDoc(doc(db, 'users', user.uid), {
+      uid: user.uid,
+      email: user.email,
+    });
+    setUser(user);
+    return user;
   };
+
+  
+  const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+   
+    await setDoc(doc(db, 'users', user.uid), {
+      uid: user.uid,
+      email: user.email,
+    });
+    setUser(user);
+    return user;
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser ? { uid: currentUser.uid, email: currentUser.email } : null);
+    });
+    return unsubscribe;
+  }, []);
 
   return (
-    <UserAuthContext.Provider value={{ logIn, googleSignIn }}>
+    <UserAuthContext.Provider value={{ user, logIn, signUp, googleSignIn }}>
       {children}
     </UserAuthContext.Provider>
   );

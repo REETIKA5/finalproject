@@ -1,5 +1,6 @@
-/* General Styling for SignUp Page */
-.signup-page {
+/* SignUp.css */
+
+.sign-up-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,15 +11,15 @@
   overflow: hidden;
 }
 
-.circle1, .circle2, .circle3 {
+.circle1-signup, .circle2-signup, .circle3-signup {
   transition: transform 0.5s ease;
 }
 
-.circle1:hover, .circle2:hover, .circle3:hover {
-  transform: scale(1.1); /* Hover effect to scale the circles */
+.circle1-signup:hover, .circle2-signup:hover, .circle3-signup:hover {
+  transform: scale(1.1);
 }
 
-.circle1 {
+.circle1-signup {
   position: absolute;
   top: 20px;
   left: 30px;
@@ -29,7 +30,7 @@
   z-index: 1;
 }
 
-.circle2 {
+.circle2-signup {
   position: absolute;
   top: 100px;
   right: 50px;
@@ -40,7 +41,7 @@
   z-index: 1;
 }
 
-.circle3 {
+.circle3-signup {
   position: absolute;
   bottom: 40px;
   right: 20px;
@@ -51,8 +52,7 @@
   z-index: 1;
 }
 
-/* Container for the SignUp Form */
-.signup-container {
+.sign-up-container {
   background-color: #f8f8f8;
   padding: 30px;
   border-radius: 8px;
@@ -69,33 +69,31 @@ h1 {
   font-weight: 400;
 }
 
-/* Input Groups */
-.input-group {
+.input-group-signup {
   margin-bottom: 15px;
   text-align: left;
 }
 
-.input-group label {
+.input-group-signup label {
   display: block;
   margin-bottom: 5px;
 }
 
-.input-group input {
+.input-group-signup input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.input-group input:focus {
-  border-color: #6ce4c5; /* Focus border color */
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 5px rgba(108, 228, 197, 0.5); /* Add shadow */
+.input-group-signup input:focus {
+  border-color: #6ce4c5;
+  outline: none;
+  box-shadow: 0 0 5px rgba(108, 228, 197, 0.5);
 }
 
-/* SignUp Button Styling */
-.signup-button {
-  background-color: #999;
+.sign-up-button {
+  background-color: #28a0a7;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -105,44 +103,36 @@ h1 {
   transition: background-color 0.3s ease; /* Smooth transition */
 }
 
-.signup-button:hover {
-  background-color: #777; /* Darker color on hover */
+.sign-up-button:hover {
+  background-color: #31bbc5;
 }
 
-.signup-footer {
+.sign-up-footer {
   margin-top: 15px;
   font-size: 12px;
 }
 
-.signup-footer a {
+.sign-up-footer a {
   color: #555;
   text-decoration: none;
 }
 
-/* Success and Error Messages */
 .error-message {
   color: red;
   margin-bottom: 10px;
 }
 
-.success-message {
-  color: green;
-  margin-bottom: 10px;
-}
-
-/* Media Queries for Responsiveness */
 @media (max-width: 480px) {
-
-  .signup-container {
-    width: 90%; /* More width on smaller screens */
+  .sign-up-container {
+    width: 90%;
   }
 
   h1 {
-    font-size: 20px; /* Smaller heading */
+    font-size: 20px;
   }
 
-  .circle1, .circle2, .circle3 {
-    width: 100px; /* Smaller circles */
+  .circle1-signup, .circle2-signup, .circle3-signup {
+    width: 100px;
     height: 100px;
   }
 }
