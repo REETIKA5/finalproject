@@ -99,11 +99,11 @@ h1 {
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
-  transition: background-color 0.3s ease; /* Smooth transition */
+  transition: background-color 0.3s ease; 
 }
 
 .login-button:hover {
-  background-color: #777; /* Darker color on hover */
+  background-color: #777; 
 }
 
 .login-footer {
@@ -167,11 +167,11 @@ h1 {
 }
 
 .google-button:hover {
-  background-color: #357ae8; /* Darker blue when hovered */
+  background-color: #357ae8; 
 }
 
 .google-button:focus {
-  outline: none; /* Remove default focus outline */
+  outline: none; 
 }
 
 .google-button span {

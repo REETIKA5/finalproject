@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from './UserAuthContext';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { logIn, googleSignIn } = useUserAuth();
 
+  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -26,6 +26,9 @@ const Login = () => {
 
     try {
       await logIn(email, password);
+      
+      // Set login status in localStorage
+      localStorage.setItem('isLoggedIn', 'true'); // User is logged in
       setSuccessMessage('Login successful!');
       navigate('/dashboard');
     } catch (error) {
@@ -33,11 +36,13 @@ const Login = () => {
     }
   };
 
+  // Handle Google sign-in
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
+      localStorage.setItem('isLoggedIn', 'true'); // User is logged in
       setSuccessMessage('Google Sign-In successful!');
-      navigate('/dashboard'); 
+      navigate('/dashboard');
     } catch (error) {
       setErrorMessage('Google Sign-In failed.');
     }
@@ -97,7 +102,7 @@ const Login = () => {
         </form>
 
         <div className="login-footer">
-        <GoogleButton className="google-button" onClick={handleGoogleSignIn} />
+          <GoogleButton className="google-button" onClick={handleGoogleSignIn} />
           <Link to="/forgot-password" className="forgot-password-link">
             Forgot Password?
           </Link>

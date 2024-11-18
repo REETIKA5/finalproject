@@ -7,6 +7,8 @@ import Aboutus from './Aboutus';
 import SignUp from './SignUp'; 
 import Dashboard from './Dashboard';
 import ForgotPassword from './ForgotPassword';
+import TransactionHistory from './TransactionHistory';
+import GenerateReport from './GenerateReport';
 import { UserAuthContextProvider } from './UserAuthContext';
 
 const App = () => {
@@ -18,8 +20,11 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/Aboutus" element={<Aboutus />} />
             <Route path="/signup" element={<SignUp />} /> 
+            <Route path="/transaction-history" element={<TransactionHistory />} />
+            <Route path="/generate-report" element={<GenerateReport />} />
             <Route path="/dashboard" element={<Dashboard />} />
 
           </Routes>
