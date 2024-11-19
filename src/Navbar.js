@@ -19,6 +19,7 @@ const Navigation = () => {
           <Nav.Link as={NavLink} to="/Aboutus" style={({ isActive }) => ({ color: isActive ? 'White' : 'Black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
             About Us
           </Nav.Link>
+        
         </Nav>
       </Container>
     </Navbar>

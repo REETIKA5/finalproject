@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CarouselFadeExample from './Carousel'; 
 import TextExample from './TextExample';
-import ExpensesImg from "C://STUDIO 3//finalproject-4//src//Images//Expenses.png";
-import Icon2 from "C://STUDIO 3//finalproject-4//src//Images//Goals.png"; 
-import Icon3 from "C://STUDIO 3//finalproject-4//src//Images//Reports2.png";
+import ExpensesImg from "C://Final//finalproject//src//Images//Expenses.png";
+import Icon2 from "C://Final//finalproject//src//Images//Goals.png"; 
+import Icon3 from "C://Final//finalproject//src//Images//Reports2.png";
 import './HomePage.css'; 
 
 function HomePage() {

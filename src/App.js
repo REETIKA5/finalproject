@@ -7,6 +7,7 @@ import Aboutus from './Aboutus';
 import SignUp from './SignUp'; 
 import Dashboard from './Dashboard';
 import ForgotPassword from './ForgotPassword';
+import Admin from './Admin'; // Admin page
 import { UserAuthContextProvider } from './UserAuthContext';
 
 const App = () => {
@@ -21,7 +22,8 @@ const App = () => {
             <Route path="/Aboutus" element={<Aboutus />} />
             <Route path="/signup" element={<SignUp />} /> 
             <Route path="/dashboard" element={<Dashboard />} />
-
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>
       </Router>

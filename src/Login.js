@@ -4,6 +4,8 @@ import './login.css';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from './UserAuthContext';
 import { useNavigate } from 'react-router-dom';
+import { db } from './firebase';  // Import your Firestore database
+import { doc, getDoc } from 'firebase/firestore';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,8 +14,9 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const { logIn, googleSignIn } = useUserAuth();
+  const { logIn, googleSignIn, user } = useUserAuth(); // Get user context
 
+  // handleLogin function (with the updated logic)
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -25,9 +28,23 @@ const Login = () => {
     }
 
     try {
+      // First, login the user via Firebase Authentication
       await logIn(email, password);
-      setSuccessMessage('Login successful!');
-      navigate('/dashboard');
+
+      // Fetch the user from Firestore to check if it's the admin
+      const userRef = doc(db, 'users', user.uid); // Get user reference by UID
+      const userDoc = await getDoc(userRef);
+      
+      // Check if user exists and if the email is the admin email
+      if (userDoc.exists() && userDoc.data().email === 'admin@gmail.com' && userDoc.data().role === 'admin') {
+        // If admin, redirect to admin page
+        setSuccessMessage('Admin Login successful!');
+        navigate('/admin'); // Navigate to the admin page
+      } else {
+        // For regular users, redirect to user dashboard
+        setSuccessMessage('Login successful!');
+        navigate('/Admin'); // Navigate to the regular dashboard
+      }
     } catch (error) {
       setErrorMessage('Invalid email or password.');
     }
@@ -37,7 +54,12 @@ const Login = () => {
     try {
       await googleSignIn();
       setSuccessMessage('Google Sign-In successful!');
-      navigate('/dashboard'); 
+      // After Google login, check the user's email for admin status
+      if (user?.email === 'admin@gmail.com') {
+        navigate('/Admin');
+      } else {
+        navigate('/Admin');
+      }
     } catch (error) {
       setErrorMessage('Google Sign-In failed.');
     }
@@ -97,7 +119,7 @@ const Login = () => {
         </form>
 
         <div className="login-footer">
-        <GoogleButton className="google-button" onClick={handleGoogleSignIn} />
+          <GoogleButton className="google-button" onClick={handleGoogleSignIn} />
           <Link to="/forgot-password" className="forgot-password-link">
             Forgot Password?
           </Link>

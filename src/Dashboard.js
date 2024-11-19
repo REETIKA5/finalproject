@@ -32,6 +32,7 @@ const Dashboard = () => {
       )
     );
   };
+  
 
   const handleExpensesChange = (e) => {
     const { name, value } = e.target;
