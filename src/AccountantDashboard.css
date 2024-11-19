@@ -1,0 +1,31 @@
+.dashboard-container {
+    padding: 20px;
+  }
+  
+  .nav-options button {
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .client-list {
+    margin-top: 20px;
+  }
+  
+  .client-item {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .client-details {
+    margin-top: 20px;
+  }
+  
+  .feedback-item, .transaction-item, .report-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  

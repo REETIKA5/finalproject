@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from './UserAuthContext';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +11,7 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const { logIn, googleSignIn } = useUserAuth();
+  const { logIn, googleSignIn,role } = useUserAuth(); // Fetch role from context
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,9 +24,17 @@ const Login = () => {
     }
 
     try {
-      await logIn(email, password);
+      await logIn(email, password); // Log in user
       setSuccessMessage('Login successful!');
-      navigate('/dashboard');
+      
+      // Redirect user based on role
+      if (role === 'accountant') {
+        navigate('/accountant'); // Redirect to accountant dashboard
+      } else if (role === 'admin') {
+        navigate('/admin'); // Redirect to admin dashboard
+      } else {
+        navigate('/dashboard'); // Redirect to user dashboard
+      }
     } catch (error) {
       setErrorMessage('Invalid email or password.');
     }
@@ -35,9 +42,17 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
+      await googleSignIn(); // Handle Google sign-in
       setSuccessMessage('Google Sign-In successful!');
-      navigate('/dashboard'); 
+      
+      
+      if (role === 'accountant') {
+        navigate('/AccountantDashboard');
+      } else if (role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       setErrorMessage('Google Sign-In failed.');
     }
@@ -97,7 +112,7 @@ const Login = () => {
         </form>
 
         <div className="login-footer">
-        <GoogleButton className="google-button" onClick={handleGoogleSignIn} />
+          <GoogleButton className="google-button" onClick={handleGoogleSignIn} />
           <Link to="/forgot-password" className="forgot-password-link">
             Forgot Password?
           </Link>

@@ -1,31 +1,53 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
 import Login from './Login';
 import Aboutus from './Aboutus';
-import SignUp from './SignUp'; 
+import SignUp from './SignUp';
 import Dashboard from './Dashboard';
 import ForgotPassword from './ForgotPassword';
-import { UserAuthContextProvider } from './UserAuthContext';
+import Feedback from './Feedback';
+import AccountantDashboard from './AccountantDashboard';
+import { UserAuthContextProvider } from './UserAuthContext'; 
+import ProtectedRoute from './ProtectedRoute';
 
 const App = () => {
   return (
-    <UserAuthContextProvider>
+    <UserAuthContextProvider> {/* Wrap your app with the context provider */}
       <Router>
-        <div>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/Aboutus" element={<Aboutus />} />
-            <Route path="/signup" element={<SignUp />} /> 
-            <Route path="/dashboard" element={<Dashboard />} />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/aboutus" element={<Aboutus />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/AccountantDashboard" element={<AccountantDashboard />} />
 
-          </Routes>
-        </div>
+          {/* Protected Routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+        
+          <Route
+            path="/accountant"
+            element={
+              <ProtectedRoute>
+                <AccountantDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/feedback" element={<Feedback />} />
+        </Routes>
       </Router>
-    </UserAuthContextProvider>
+    </UserAuthContextProvider> 
   );
 };
 
