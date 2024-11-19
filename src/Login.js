@@ -11,9 +11,8 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const { logIn, googleSignIn } = useUserAuth();
+  const { logIn, googleSignIn,role } = useUserAuth(); // Fetch role from context
 
-  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -25,24 +24,35 @@ const Login = () => {
     }
 
     try {
-      await logIn(email, password);
-      
-      // Set login status in localStorage
-      localStorage.setItem('isLoggedIn', 'true'); // User is logged in
+      await logIn(email, password); // Log in user
       setSuccessMessage('Login successful!');
-      navigate('/dashboard');
+      
+      // Redirect user based on role
+      if (role === 'accountant') {
+        navigate('/accountant'); // Redirect to accountant dashboard
+      } else if (role === 'admin') {
+        navigate('/admin'); // Redirect to admin dashboard
+      } else {
+        navigate('/dashboard'); // Redirect to user dashboard
+      }
     } catch (error) {
       setErrorMessage('Invalid email or password.');
     }
   };
 
-  // Handle Google sign-in
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
-      localStorage.setItem('isLoggedIn', 'true'); // User is logged in
+      await googleSignIn(); // Handle Google sign-in
       setSuccessMessage('Google Sign-In successful!');
-      navigate('/dashboard');
+      
+      
+      if (role === 'accountant') {
+        navigate('/AccountantDashboard');
+      } else if (role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       setErrorMessage('Google Sign-In failed.');
     }

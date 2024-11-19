@@ -5,7 +5,6 @@ import ExpensesImg from "C://Final//finalproject//src//Images//Expenses.png";
 import Icon2 from "C://Final//finalproject//src//Images//Goals.png"; 
 import Icon3 from "C://Final//finalproject//src//Images//Reports2.png";
 import './HomePage.css'; 
-import Footer from './Footer';
 
 function HomePage() {
     const [visible, setVisible] = useState(false); 
@@ -51,7 +50,7 @@ function HomePage() {
               <img
                 src={ExpensesImg}
                 alt="Track Spending"
-                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} // Slide-in class
+                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} 
                 style={{ width: '55%', height: 'auto' }}
               />
               <h2>Track Spending</h2>
@@ -63,7 +62,7 @@ function HomePage() {
               <img
                 src={Icon2}
                 alt="Set Goals"
-                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`} 
+                className={`image-effect ${visible ? 'slide-in visible' : 'slide-in'}`}
                 style={{ width: '100%', height: 'auto' }}
               />
               <h2>Set Goals</h2>
@@ -92,9 +91,9 @@ function HomePage() {
             <p>- Happy User</p>
           </div>
         </section>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            <Footer />  
-         </div>
+        <footer className="text-center" style={{ backgroundColor: '#333', color: 'white', padding: '20px 0' }}>
+          <p>&copy; 2024 MoneyTrail | <a href="/privacy" style={{ color: 'orange' }}>Privacy Policy</a> | <a href="/terms" style={{ color: 'orange' }}>Terms of Service</a></p>
+        </footer>
       </div>
     );
 }
