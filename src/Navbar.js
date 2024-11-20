@@ -1,57 +1,73 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'; // Removed unused 'Link' import
 import { useUserAuth } from './UserAuthContext';
 import './Navbar.css';
-
+import { Navbar as BootstrapNavbar, Container, Nav } from 'react-bootstrap'; // Removed unused 'NavDropdown'
+ 
 const Navbar = () => {
   const { user, logOut, role } = useUserAuth();
-
+ 
   return (
-
-    <Navbar style={{ backgroundColor: '#61CE70', transition: 'background-color 0.3s ease', zIndex: 100, padding: '5px 20px', height: '60px' }} variant="dark">
+    <BootstrapNavbar
+      style={{ backgroundColor: '#61CE70', transition: 'background-color 0.3s ease', zIndex: 100, padding: '5px 20px', height: '60px' }}
+      variant="dark"
+    >
       <Container>
-        <Navbar.Brand as={NavLink} to="/" style={{ color: "WHITE", fontWeight: 'bold', fontSize: '1.5rem' }}>MoneyTrail</Navbar.Brand>
+        <BootstrapNavbar.Brand as={NavLink} to="/" style={{ color: 'white', fontWeight: 'bold', fontSize: '1.5rem' }}>
+          MoneyTrail
+        </BootstrapNavbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link as={NavLink} to="/" style={({ isActive }) => ({ color: isActive ? 'White' : 'Black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+          <Nav.Link as={NavLink} to="/" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/login" style={({ isActive }) => ({ color: isActive ? 'WHITE' : 'Black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
-            Login
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/Aboutus" style={({ isActive }) => ({ color: isActive ? 'White' : 'Black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
-            About Us
-          </Nav.Link>
-        
+         
+          {/* Show Login/Sign Up links if the user is not logged in */}
+          {!user && (
+            <>
+              <Nav.Link as={NavLink} to="/login" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+                Login
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/signup" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+                Sign Up
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/Aboutus" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+                AboutUs
+              </Nav.Link>
+            </>
+          )}
+         
+          {/* Show Feedback link only if the user is logged in */}
+          {user && (
+            <Nav.Link as={NavLink} to="/feedback" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+              Feedback
+            </Nav.Link>
+          )}
+ 
+          {/* Show Dashboard links based on role */}
+          {user && (
+            <>
+              <Nav.Link as={NavLink} to="/dashboard" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+                Dashboard
+              </Nav.Link>
+              {role === 'admin' && (
+                <Nav.Link as={NavLink} to="/admin" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+                  Admin Dashboard
+                </Nav.Link>
+              )}
+              {role === 'accountant' && (
+                <Nav.Link as={NavLink} to="/accountant" style={({ isActive }) => ({ color: isActive ? 'white' : 'black', fontWeight: isActive ? 'bold' : 'normal', fontSize: '1rem' })}>
+                  Accountant Dashboard
+                </Nav.Link>
+              )}
+              <Nav.Link as="button" onClick={logOut} style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
+                Log Out
+              </Nav.Link>
+            </>
+          )}
         </Nav>
       </Container>
-    </Navbar>
-
-    <nav className="navbar">
-      <div className="navbar-logo">
-        <Link to="/">MoneyTrail</Link>
-      </div>
-      <ul className="navbar-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/Feedback">Feedback</Link></li>
-        
-
-        {user ? (
-          <>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            {role === 'admin' && <li><Link to="/admin">Admin Dashboard</Link></li>}
-            {role === 'accountant' && <li><Link to="/accountant">Accountant Dashboard</Link></li>}
-            <li><button onClick={logOut} className="logout-button">Log Out</button></li>
-          </>
-        ) : (
-          <>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/signup">Sign Up</Link></li>
-          </>
-        )}
-      </ul>
-    </nav>
-
+    </BootstrapNavbar>
   );
 };
-
+ 
 export default Navbar;

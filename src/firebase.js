@@ -1,13 +1,7 @@
-
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-
-
-import { initializeApp } from 'firebase/app';
-
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-
+ 
 const firebaseConfig = {
   apiKey: "AIzaSyAeDrOihF0qjdD46iZDia6iriedelndxTs",
   authDomain: "personalaccountingprj.firebaseapp.com",
@@ -17,18 +11,12 @@ const firebaseConfig = {
   appId: "1:896608154893:web:7b2ed5154656027fb3ec44",
   measurementId: "G-ZLMJ078Q4J",
 };
-
-
+ 
+// Initialize Firebase app only once
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+ 
+// Initialize Firebase services
 const auth = getAuth(app);
-
-const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
-const auth = getAuth(app);
-
-
-export { auth, db, }; 
-
-export { db, auth };
-
+ 
+export { auth, db };

@@ -3,11 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from './UserAuthContext';
-import { useNavigate } from 'react-router-dom';
-import { db } from './firebase';  // Import your Firestore database
+import { db } from './firebase'; // Import your Firestore database
 import { doc, getDoc } from 'firebase/firestore';
-
-
+ 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,83 +13,69 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-
-  const { logIn, googleSignIn,role, user } = useUserAuth(); // Fetch role from context
-
-
-  // handleLogin function (with the updated logic)
+  const { logIn, googleSignIn, user } = useUserAuth();
+ 
+  // Handle login logic
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
-
+ 
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
       return;
     }
-
+ 
     try {
-
-      // First, login the user via Firebase Authentication
+      // Log in the user via Firebase Authentication
       await logIn(email, password);
-
-      // Fetch the user from Firestore to check if it's the admin
-      const userRef = doc(db, 'users', user.uid); // Get user reference by UID
+ 
+      // Fetch user data from Firestore to check role or admin status
+      const userRef = doc(db, 'users', user.uid);
       const userDoc = await getDoc(userRef);
-      
-      // Check if user exists and if the email is the admin email
-      if (userDoc.exists() && userDoc.data().email === 'admin@gmail.com' && userDoc.data().role === 'admin') {
-        // If admin, redirect to admin page
-        setSuccessMessage('Admin Login successful!');
-        navigate('/admin'); // Navigate to the admin page
-      } else {
-        // For regular users, redirect to user dashboard
+ 
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
         setSuccessMessage('Login successful!');
-        navigate('/Admin'); // Navigate to the regular dashboard
-
-      await logIn(email, password); // Log in user
-      setSuccessMessage('Login successful!');
-      
-      // Redirect user based on role
-      if (role === 'accountant') {
-        navigate('/accountant'); // Redirect to accountant dashboard
-      } else if (role === 'admin') {
-        navigate('/admin'); // Redirect to admin dashboard
+       
+        // Log the fetched user data to verify the role
+        console.log("Fetched user data: ", userData);
+ 
+        // Check if the user is an admin (based on the role in Firestore)
+        if (userData.role === 'admin' && userData.email === 'admin@gmail.com') {
+          navigate('/admin'); // Navigate to the admin page
+        } else if (userData.role === 'accountant') {
+          navigate('/accountantDashboard'); // Navigate to the accountant dashboard
+        } else {
+          navigate('/dashboard'); // Navigate to the user dashboard
+        }
       } else {
-        navigate('/dashboard'); // Redirect to user dashboard
-
+        setErrorMessage('User data not found.');
       }
     } catch (error) {
       setErrorMessage('Invalid email or password.');
     }
   };
-
+ 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn(); // Handle Google sign-in
+      await googleSignIn();
       setSuccessMessage('Google Sign-In successful!');
-
-      // After Google login, check the user's email for admin status
-      if (user?.email === 'admin@gmail.com') {
-        navigate('/Admin');
-      } else {
-        navigate('/Admin');
-
-      
-      
-      if (role === 'accountant') {
-        navigate('/AccountantDashboard');
-      } else if (role === 'admin') {
+ 
+      // Redirect based on user's role or admin status
+      const userRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userRef);
+ 
+      if (userDoc.exists() && userDoc.data().role === 'admin') {
         navigate('/admin');
       } else {
         navigate('/dashboard');
-
       }
     } catch (error) {
       setErrorMessage('Google Sign-In failed.');
     }
   };
-
+ 
   return (
     <div className="login-page">
       <div className="circle1"></div>
@@ -123,7 +107,7 @@ const Login = () => {
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
-
+ 
           <button
             type="submit"
             className="login-button"
@@ -144,7 +128,7 @@ const Login = () => {
             Login
           </button>
         </form>
-
+ 
         <div className="login-footer">
           <GoogleButton className="google-button" onClick={handleGoogleSignIn} />
           <Link to="/forgot-password" className="forgot-password-link">
@@ -158,5 +142,5 @@ const Login = () => {
     </div>
   );
 };
-
+ 
 export default Login;
