@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from './UserAuthContext';
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';  // Import your Firestore database
 import { doc, getDoc } from 'firebase/firestore';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +15,9 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const { logIn, googleSignIn, user } = useUserAuth(); // Get user context
+
+  const { logIn, googleSignIn,role, user } = useUserAuth(); // Fetch role from context
+
 
   // handleLogin function (with the updated logic)
   const handleLogin = async (e) => {
@@ -28,6 +31,7 @@ const Login = () => {
     }
 
     try {
+
       // First, login the user via Firebase Authentication
       await logIn(email, password);
 
@@ -44,6 +48,18 @@ const Login = () => {
         // For regular users, redirect to user dashboard
         setSuccessMessage('Login successful!');
         navigate('/Admin'); // Navigate to the regular dashboard
+
+      await logIn(email, password); // Log in user
+      setSuccessMessage('Login successful!');
+      
+      // Redirect user based on role
+      if (role === 'accountant') {
+        navigate('/accountant'); // Redirect to accountant dashboard
+      } else if (role === 'admin') {
+        navigate('/admin'); // Redirect to admin dashboard
+      } else {
+        navigate('/dashboard'); // Redirect to user dashboard
+
       }
     } catch (error) {
       setErrorMessage('Invalid email or password.');
@@ -52,13 +68,24 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
+      await googleSignIn(); // Handle Google sign-in
       setSuccessMessage('Google Sign-In successful!');
+
       // After Google login, check the user's email for admin status
       if (user?.email === 'admin@gmail.com') {
         navigate('/Admin');
       } else {
         navigate('/Admin');
+
+      
+      
+      if (role === 'accountant') {
+        navigate('/AccountantDashboard');
+      } else if (role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+
       }
     } catch (error) {
       setErrorMessage('Google Sign-In failed.');
