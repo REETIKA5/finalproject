@@ -3,6 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from './UserAuthContext';
+import { useNavigate } from 'react-router-dom';
+import { db } from './firebase';  // Import your Firestore database
+import { doc, getDoc } from 'firebase/firestore';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,8 +15,11 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const { logIn, googleSignIn,role } = useUserAuth(); // Fetch role from context
 
+  const { logIn, googleSignIn,role, user } = useUserAuth(); // Fetch role from context
+
+
+  // handleLogin function (with the updated logic)
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -24,6 +31,24 @@ const Login = () => {
     }
 
     try {
+
+      // First, login the user via Firebase Authentication
+      await logIn(email, password);
+
+      // Fetch the user from Firestore to check if it's the admin
+      const userRef = doc(db, 'users', user.uid); // Get user reference by UID
+      const userDoc = await getDoc(userRef);
+      
+      // Check if user exists and if the email is the admin email
+      if (userDoc.exists() && userDoc.data().email === 'admin@gmail.com' && userDoc.data().role === 'admin') {
+        // If admin, redirect to admin page
+        setSuccessMessage('Admin Login successful!');
+        navigate('/admin'); // Navigate to the admin page
+      } else {
+        // For regular users, redirect to user dashboard
+        setSuccessMessage('Login successful!');
+        navigate('/Admin'); // Navigate to the regular dashboard
+
       await logIn(email, password); // Log in user
       setSuccessMessage('Login successful!');
       
@@ -34,6 +59,7 @@ const Login = () => {
         navigate('/admin'); // Redirect to admin dashboard
       } else {
         navigate('/dashboard'); // Redirect to user dashboard
+
       }
     } catch (error) {
       setErrorMessage('Invalid email or password.');
@@ -44,6 +70,13 @@ const Login = () => {
     try {
       await googleSignIn(); // Handle Google sign-in
       setSuccessMessage('Google Sign-In successful!');
+
+      // After Google login, check the user's email for admin status
+      if (user?.email === 'admin@gmail.com') {
+        navigate('/Admin');
+      } else {
+        navigate('/Admin');
+
       
       
       if (role === 'accountant') {
@@ -52,6 +85,7 @@ const Login = () => {
         navigate('/admin');
       } else {
         navigate('/dashboard');
+
       }
     } catch (error) {
       setErrorMessage('Google Sign-In failed.');
